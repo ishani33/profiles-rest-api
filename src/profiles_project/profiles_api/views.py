@@ -1,6 +1,7 @@
 """a view is basically the application logic behind our API, it's the code that runs when user visits our API endpoint"""
 from django.shortcuts import render
 
+from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response #Response object is the standard response object that we return from our APIView
 from rest_framework import status
@@ -54,4 +55,18 @@ class HelloApiView(APIView):
     def delete(self, request, pk=None):
         """Deletes an object"""
 
-        return Response({'method':'patch'})
+        return Response({'method':'delete'})
+
+
+class HelloViewSet(viewsets.ViewSet):
+    """Test API ViewSet"""
+
+    def list(self, request):
+        """Return a Hello message"""
+
+        a_viewset = [
+            'Uses actions(list, create, retrieve, update and partial_update)',
+            'Automatically maps to URLs using Routers',
+            'Provides more functionality with less code'
+            ]
+        return Response({'message':'hello', 'a_viewset':a_viewset})
